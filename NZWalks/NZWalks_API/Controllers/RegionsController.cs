@@ -44,6 +44,9 @@ namespace NZWalks_API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddRegion([FromBody] Models.DTO.RegionCreateDTO createDTO)
         {
+            //validate the request
+
+
             // request(DTO) to Domain Model
             //var regionDomain = _mapper.Map<Models.Domain.Region>(createDTO);
             var regionDomain = new Region()
@@ -126,5 +129,15 @@ namespace NZWalks_API.Controllers
             //return Ok response
             return Ok(regionDTO);
         }
+
+        #region Private Methods
+        private void ValidateAddRegion(Models.DTO.RegionCreateDTO createDTO)
+        {
+            if (string.IsNullOrWhiteSpace(createDTO.Code))
+            {
+                ModelState.AddModelError(nameof(createDTO.Code), $"{nameof(createDTO.Code)} cannot be null");
+            }
+        }
+        #endregion
     }
 }
