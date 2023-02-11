@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NZWalks_API.Models.Domain;
 using NZWalks_API.Repository.IRepository;
@@ -42,6 +43,7 @@ namespace NZWalks_API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddRegion([FromBody] Models.DTO.RegionCreateDTO createDTO)
         {
             //validate the request
@@ -70,6 +72,7 @@ namespace NZWalks_API.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize]
         public async Task<IActionResult> DeleteRegion(Guid id)
         {
             //get region from database
@@ -90,6 +93,7 @@ namespace NZWalks_API.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize]
         public async Task<IActionResult> UpdateRegion([FromRoute] Guid id, [FromBody] Models.DTO.RegionUpdateDTO regionUpdateDTO)
         {
             //Convert DTO to domain model
